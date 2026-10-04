@@ -1,0 +1,50 @@
+name: Publish validated release
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing release tag to publish
+        required: true
+        default: v1.0.1
+      commit:
+        description: Validated source commit
+        required: true
+        default: 8be5679c8713fb48a2f8cb779107de764652a3dc
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    env:
+      RELEASE_TAG: ${{ inputs.tag }}
+      RELEASE_COMMIT: ${{ inputs.commit }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.commit }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Check release version and source
+        run: |
+          python3 - <<'PY'
+          import json, os, subprocess
+          version = json.load(open('manifest.json'))['version']
+          assert os.environ['RELEASE_TAG'] == 'v' + version
+          assert subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip() == os.environ['RELEASE_COMMIT']
+          PY
+      - name: Run regression checks
+        run: npm test
+      - name: Build deterministic release ZIPs
+        run: python3 scripts/package_release.py
+      - name: Upload assets and publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release view "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY"
+          gh release upload "$RELEASE_TAG" dist/*.zip dist/SHA256SUMS.txt --repo "$GITHUB_REPOSITORY" --clobber
+          gh release edit "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" --draft=false --latest
