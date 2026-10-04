@@ -1,0 +1,27 @@
+{
+  "name": "context-clip",
+  "version": "1.0.1",
+  "description": "Extract clean, token-efficient Markdown from any web page for ChatGPT, Claude, Cursor & Gemini.",
+  "main": "src/extractor.js",
+  "scripts": {
+    "test": "node tests/run_tests.js && node tests/background_tests.js",
+    "test:browser": "node tests/browser_tests.js",
+    "build": "python3 scripts/package_release.py"
+  },
+  "keywords": [
+    "chrome-extension",
+    "markdown",
+    "llm",
+    "chatgpt",
+    "claude",
+    "cursor",
+    "token-optimization",
+    "web-clipper",
+    "open-source"
+  ],
+  "author": "ContextClip Open Source Contributors",
+  "license": "MIT",
+  "devDependencies": {
+    "playwright": "1.63.0"
+  }
+}

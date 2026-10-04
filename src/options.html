@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ContextClip - Settings & Customization</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="options-container">
+    <header class="options-header">
+      <div class="brand">
+        <img src="../icons/icon48.png" alt="ContextClip" class="brand-icon">
+        <div>
+          <h1>ContextClip Settings</h1>
+          <p>Configure default extraction behavior, prompt wrappers, and donation links</p>
+        </div>
+      </div>
+      <div class="header-badges">
+        <span class="badge">v1.0.1</span>
+        <span class="badge open-source">Open Source</span>
+      </div>
+    </header>
+
+    <main class="settings-grid">
+      <!-- Section 1: Extraction Defaults -->
+      <section class="card">
+        <h2>Default Extraction Preferences</h2>
+        <div class="form-group">
+          <label class="checkbox-row">
+            <input type="checkbox" id="chkMetadata">
+            <div>
+              <strong>Include Metadata Header</strong>
+              <p>Adds YAML frontmatter with Title, Source URL, Author, and Published Date</p>
+            </div>
+          </label>
+        </div>
+
+        <div class="form-group">
+          <label class="checkbox-row">
+            <input type="checkbox" id="chkLinks">
+            <div>
+              <strong>Preserve Hyperlinks</strong>
+              <p>Retain Markdown links `[text](url)`. Uncheck to save additional tokens.</p>
+            </div>
+          </label>
+        </div>
+
+        <div class="form-group">
+          <label class="checkbox-row">
+            <input type="checkbox" id="chkTables">
+            <div>
+              <strong>Format HTML Tables as Markdown Tables</strong>
+              <p>Converts &lt;table&gt; elements to standard GitHub Flavored Markdown tables</p>
+            </div>
+          </label>
+        </div>
+
+        <div class="form-group">
+          <label class="checkbox-row">
+            <input type="checkbox" id="chkImages">
+            <div>
+              <strong>Include Image Markdown `![alt](src)`</strong>
+              <p>Disabled by default to minimize token usage for pure text models</p>
+            </div>
+          </label>
+        </div>
+      </section>
+
+      <!-- Section 2: LLM Intent Wrapper -->
+      <section class="card">
+        <h2>Default LLM Prompt Wrapper</h2>
+        <div class="form-group">
+          <label for="selDefaultPrompt">Default Intent Template:</label>
+          <select id="selDefaultPrompt" class="input-select">
+            <option value="none">Raw Markdown (No prompt prefix)</option>
+            <option value="summary">Executive Summary & Key Takeaways</option>
+            <option value="qa">In-depth Technical Q&A</option>
+            <option value="explain">Explain Simply (ELI5)</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- Section 3: Creator & Sponsorship Configuration -->
+      <section class="card sponsor-card">
+        <h2>💖 Support & Sponsorship Links</h2>
+        <p class="section-desc">
+          ContextClip is 100% free and open-source under the MIT license. If you publish or fork this project, configure your donation links here:
+        </p>
+
+        <div class="form-group">
+          <label for="txtGithubSponsor">GitHub Sponsors URL:</label>
+          <input type="url" id="txtGithubSponsor" class="input-text" placeholder="https://github.com/sponsors/YOUR_USERNAME">
+        </div>
+
+        <div class="form-group">
+          <label for="txtBmac">Buy Me a Coffee URL:</label>
+          <input type="url" id="txtBmac" class="input-text" placeholder="https://buymeacoffee.com/YOUR_USERNAME">
+        </div>
+
+        <div class="form-group">
+          <label for="txtCustomSponsor">Custom Donation URL (e.g., Ko-fi / Crypto):</label>
+          <input type="url" id="txtCustomSponsor" class="input-text" placeholder="https://ko-fi.com/YOUR_USERNAME">
+        </div>
+      </section>
+    </main>
+
+    <!-- Save Bar -->
+    <div class="footer-bar">
+      <span id="saveStatus" class="save-status"></span>
+      <button id="btnSave" class="btn-save">Save Settings</button>
+    </div>
+  </div>
+
+  <script src="settings.js"></script>
+  <script src="options.js"></script>
+</body>
+</html>

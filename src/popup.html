@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ContextClip</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="header">
+      <div class="logo-group">
+        <img src="../icons/icon32.png" alt="Logo" class="logo-img">
+        <div>
+          <h1 class="logo-title">ContextClip</h1>
+          <p class="logo-subtitle">LLM-Ready Markdown</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button id="btnSettings" class="icon-btn" title="Settings / Options">⚙️</button>
+      </div>
+    </header>
+
+    <!-- Stats Bar -->
+    <div class="stats-card">
+      <div class="stat-item">
+        <span class="stat-label">Estimated Tokens</span>
+        <span id="statTokens" class="stat-value highlight">--</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-label">Words</span>
+        <span id="statWords" class="stat-value">--</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-label">Characters</span>
+        <span id="statChars" class="stat-value">--</span>
+      </div>
+    </div>
+
+    <!-- Configuration Options -->
+    <div class="options-section">
+      <div class="option-row">
+        <label class="checkbox-label">
+          <input type="checkbox" id="optMetadata" checked>
+          <span>Source & Title header</span>
+        </label>
+        <label class="checkbox-label">
+          <input type="checkbox" id="optLinks" checked>
+          <span>Hyperlinks</span>
+        </label>
+        <label class="checkbox-label">
+          <input type="checkbox" id="optTables" checked>
+          <span>Tables</span>
+        </label>
+      </div>
+
+      <div class="prompt-selector-row">
+        <label for="selPrompt" class="prompt-label">LLM Intent:</label>
+        <select id="selPrompt" class="prompt-select">
+          <option value="none">Raw Markdown</option>
+          <option value="summary">Prompt: Executive Summary</option>
+          <option value="qa">Prompt: Technical Q&A</option>
+          <option value="explain">Prompt: Explain Simply</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Preview Container -->
+    <div class="preview-container">
+      <div class="preview-header">
+        <span>Extracted Preview</span>
+        <span id="copyStatus" class="status-badge hidden">Copied!</span>
+      </div>
+      <textarea id="txtPreview" class="preview-textarea" placeholder="Extracting clean markdown..." readonly></textarea>
+    </div>
+
+    <!-- Main Actions -->
+    <div class="action-buttons">
+      <button id="btnCopy" class="btn btn-primary" disabled>
+        <span class="btn-icon">📋</span> Copy to Clipboard
+      </button>
+      <button id="btnDownload" class="btn btn-secondary" title="Download as .md file" disabled>
+        <span class="btn-icon">💾</span> Save .md
+      </button>
+    </div>
+
+    <!-- High-Converting Sponsorship & Open Source Footer -->
+    <footer class="footer" id="sponsorFooter" hidden>
+      <div class="sponsor-banner">
+        <span class="sponsor-text">Found this useful? Support open-source dev:</span>
+        <div class="sponsor-links">
+          <a target="_blank" rel="noopener noreferrer" class="sponsor-btn github-sponsor" id="linkGithubSponsor" hidden>
+            💖 Sponsor
+          </a>
+          <a target="_blank" rel="noopener noreferrer" class="sponsor-btn bmac-sponsor" id="linkBmac" hidden>
+            ☕ Coffee
+          </a>
+          <a target="_blank" rel="noopener noreferrer" class="sponsor-btn github-sponsor" id="linkCustomSponsor" hidden>Support</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="settings.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
